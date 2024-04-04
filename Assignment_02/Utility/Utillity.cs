@@ -6,13 +6,14 @@ namespace Assignment_02.Utility
     public static class Utillity
     {
         public static void CreateClasses(string[,] classes)
-        {
+        { // Tam: I don't get why this needs array type?
             classes[0, 0] = "Math";
             classes[1, 0] = "Web";
             classes[2, 0] = "OOP";
             classes[3, 0] = "Linux";
             classes[4, 0] = "Databases";
         }
+
 
         public static Student[] AddStudent(Student[] students, Student student)
         {
@@ -64,8 +65,14 @@ namespace Assignment_02.Utility
             }
         }
 
+        // Tam: need to store students and their classed enrolled here
+        // Tam: need to store professor and their classed assigned here
+        // Tam: don't need to check Profs and Classes because the assignment doesn't require it
+
         public static void EnrollStudent(string[,] enrolledClasses, string c, Student student)
-        {
+        { // Tam: I don't see how this works,
+          // because I can enter the same student in one class again and again,
+          // the same student in many classes, and unlimited amount of students in one class
             try
             {
                 // Subtracting 1 from selection as array is 0 indexed
@@ -83,19 +90,19 @@ namespace Assignment_02.Utility
                         Console.WriteLine("-----------------------------");
                         Console.WriteLine("- Student Already Enrolled! -");
                         Console.WriteLine("-----------------------------");
+                        Thread.Sleep(2000);
                         break;
                     }
                     else if (enrolledClasses[classIndex, i] == null)
                     {
                         enrolledClasses[classIndex, i] = studentDetails;
-                        break;      
+                        break;
                     }
                     else
                     {
                         continue;
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -103,6 +110,6 @@ namespace Assignment_02.Utility
                 throw;
             }
         }
-        
+
     }
 }

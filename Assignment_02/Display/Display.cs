@@ -8,20 +8,21 @@ namespace Assignment_02.Display
     {
         public static string MenuItems()
         {
-            var regex = new Regex("[0-9]");
+            var regex = new Regex("[0-7]");
 
             try
             {
                 Console.WriteLine("---------------- College Management System ----------------");
-                Console.WriteLine("----------------------------");
                 Console.WriteLine("      ----- Menu -----");
                 Console.WriteLine("----------------------------\n");
                 Console.WriteLine("1) Add Student");
                 Console.WriteLine("2) Add Professor");
                 Console.WriteLine("3) View All Students");
                 Console.WriteLine("4) View All Professors");
-                Console.WriteLine("5) Enroll Student");
-                Console.WriteLine("6) View Students Enrolled\n");
+                Console.WriteLine("5) Enroll Student In Classes");
+                Console.WriteLine("6) View Students Enrolled In Classes");
+                // Tam: The assignment - requirement 5: Data Display... ask to professors and the class they teach
+                Console.WriteLine("7) View Professor Teaching Classes\n");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("0) Exit");
                 Console.WriteLine("----------------------------\n");
@@ -29,7 +30,7 @@ namespace Assignment_02.Display
 
                 var input = Console.ReadLine();
 
-                while (!regex.IsMatch(input!) || Convert.ToInt32(input) > 9)
+                while (!regex.IsMatch(input!) || Convert.ToInt32(input) > 7)
                 {
                     Console.WriteLine("Please enter a valid selection! ");
                     Console.Write("> ");
@@ -142,7 +143,7 @@ namespace Assignment_02.Display
                 {
                     Thread.Sleep(10000);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -178,7 +179,7 @@ namespace Assignment_02.Display
                 {
                     Thread.Sleep(10000);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -186,7 +187,7 @@ namespace Assignment_02.Display
                 throw;
             }
         }
-        
+
         public static Student SelectStudentMenu(Student[] students)
         {
             try
@@ -213,7 +214,7 @@ namespace Assignment_02.Display
 
                 Console.Write("> ");
                 var input = Console.ReadLine();
-                
+
                 while (!regex.IsMatch(input!) || Convert.ToInt32(input) > 10)
                 {
                     Console.WriteLine("Please enter a valid selection! ");
@@ -234,13 +235,15 @@ namespace Assignment_02.Display
         }
 
         public static void EnrollStudentMenu(Student[] students, string[,] enrolledClasses)
-        {
+        {// Tam: need to stop user choose the class which is fully enrolled here by using IndexOutOfRangeException ???
             try
             {
+                //int studentCount = 0;
+
                 Console.Clear();
-                var regex = new Regex("[0-9]");
-                
-                Console.WriteLine("---------------------------------------");   
+                var regex = new Regex("[1-5]");
+
+                Console.WriteLine("---------------------------------------");
                 Console.WriteLine("Please select class to enroll student: ");
                 Console.WriteLine("1) Math");
                 Console.WriteLine("2) Web");
@@ -258,8 +261,112 @@ namespace Assignment_02.Display
                     classInput = Console.ReadLine();
                 }
 
-                var student = SelectStudentMenu(students);
-                EnrollStudent(enrolledClasses, classInput, student);
+                var classIndex = Convert.ToInt32(classInput) - 1;
+
+                if (enrolledClasses[classIndex, 3] != null)
+                {
+                    Console.WriteLine("CLASS FULL !!!");
+                    Thread.Sleep(2000);
+
+                }
+                else
+                {
+                    var student = SelectStudentMenu(students);
+                    EnrollStudent(enrolledClasses, classInput, student);
+                }
+
+
+            }
+            catch (IndexOutOfRangeException iex)
+            {
+                Console.WriteLine(iex.Message);
+                Thread.Sleep(2000);
+                throw;
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
+        }
+
+
+        //  Tam: I need this for MenuItem - option 6 View Students Enrolled In Classes
+        public static void DisplayStudentsEnrolledClasses(string[,] classes)
+        {
+            try
+            {
+                Console.Clear();
+                Console.WriteLine($"--------------------------------------");
+                Console.WriteLine($"-------------- Students --------------");
+                Console.WriteLine($"\n------- Name -------------- Id ------- Class -------");
+
+                int rows = classes.GetLength(0);
+                int cols = classes.GetLength(1);
+
+                for (int i = 0; i < rows; i++)
+                {
+                    var temp = classes[i, 0];
+
+                    for (int j = 0; j < cols; j++)
+                    {
+
+                        Console.WriteLine(classes[i, j]);
+                    }
+
+                }
+                Console.WriteLine("\n\n0) Exit");
+                Console.Write("> ");
+                while (Console.ReadLine() != "0")
+                {
+                    Thread.Sleep(10000);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+
+        // Tam: I need to this MenuItem - option 7: View Professor Teaching Classes
+        public static void DisplayProfessorsTeachingClasses(Professor[] professors)
+        {
+            try
+            {
+                Console.Clear();
+                Console.WriteLine($"--------------------------------------");
+                Console.WriteLine($"-------------- Professors --------------");
+                Console.WriteLine($"\n------- Name -------------- Id ------- Class -------");
+
+                for (int i = 0; i < professors.Length; i++)
+                {
+                    if (professors[i] == null)
+                    {
+                        break;
+                    }
+
+                    var professor = professors[i];
+
+                    Console.WriteLine($"- {professor.FirstName} {professor.LastName} | {professor.Id} | ");
+                    Console.WriteLine("Classes Taught:");
+                    for (int j = 0; j < 5; j++)
+                    {
+                        Console.WriteLine($"- {professor.Classes[j]}");
+                    }
+                    Console.WriteLine($"------------------------------------");
+
+                }
+                Console.WriteLine("\n\n0) Exit");
+                Console.Write("> ");
+                while (Console.ReadLine() != "0")
+                {
+                    Thread.Sleep(10000);
+                }
 
             }
             catch (Exception ex)
@@ -277,7 +384,6 @@ namespace Assignment_02.Display
             Thread.Sleep(2000);
             Environment.Exit(0);
         }
-
     }
 }
 

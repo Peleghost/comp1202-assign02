@@ -17,7 +17,18 @@
             this.FirstName = fName;
             this.LastName = lName;
         }
+
+        // Tam: I need this for MenuItem - option 6 View Students Enrolled In Classes
+        public Student(int id, string fName, string lName, string[] aClass)
+        {
+            this.Id = id;
+            this.FirstName = fName;
+            this.LastName = lName;
+            this.Classes = aClass;
+
+        }
+
     }
 
-    
+
 }

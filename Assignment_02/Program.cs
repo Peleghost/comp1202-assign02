@@ -10,14 +10,14 @@ namespace Assignment_02
     // 
     // ---------------- Members ----------------
     // Fellipe C.T De Camargo - 101497831
-    // Tam Ha -
+    // Tam Ha - 101407678
     // -----------------------------------------
 
     internal class Program
     {
         // Global int Ids to simulate an auto-increment.
         // In a real world scenario we would have a database for this type of application
-        private static int studentId = 1; 
+        private static int studentId = 1;
         private static int professorId = 1;
         //
 
@@ -27,13 +27,18 @@ namespace Assignment_02
             Student[] students = new Student[10];
             Professor[] professors = new Professor[10];
 
-            // Student Enrolled Classes
+            // Enroll Student in Classes
             string[,] enrolledClasses = new string[5, 4];
             CreateClasses(enrolledClasses);
-            
-            // Professor Taught Classes
+
+            // Assign Professor in Classes
             string[,] taughtClasses = new string[5, 4];
             CreateClasses(taughtClasses);
+
+
+            // Arrays to store students who enrolled in classes:
+
+            // Arrays to store professors who teaching classes:
 
             bool start = true;
 
@@ -49,7 +54,7 @@ namespace Assignment_02
                     case "1":
                         var student = CreateStudentMenu(studentId);
 
-                        if(StudentExists(students, student))
+                        if (StudentExists(students, student))
                         {
                             break;
                         }
@@ -92,12 +97,16 @@ namespace Assignment_02
                     // Enroll Students
                     case "5":
                         EnrollStudentMenu(students, enrolledClasses);
-
+                        break;
+                    // Tam: I add these: 
+                    // View Students Enrolled In Classes
+                    case "6":
+                        DisplayStudentsEnrolledClasses(enrolledClasses);
                         break;
 
-                    // View Students Enrolled
-                    case "6":
-
+                    // View Professor Teaching Classes
+                    case "7":
+                        DisplayProfessorsTeachingClasses(professors);
                         break;
 
                     // Exit App
@@ -105,10 +114,12 @@ namespace Assignment_02
                         ExitMsg();
 
                         break;
+
                 }
             }
 
-            
+
         }
     }
+
 }
