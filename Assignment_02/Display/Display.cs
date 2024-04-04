@@ -21,7 +21,6 @@ namespace Assignment_02.Display
                 Console.WriteLine("4) View All Professors");
                 Console.WriteLine("5) Enroll Student In Classes");
                 Console.WriteLine("6) View Students Enrolled In Classes");
-                // Tam: The assignment - requirement 5: Data Display... ask to professors and the class they teach
                 Console.WriteLine("7) View Professor Teaching Classes\n");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("0) Exit");
@@ -139,9 +138,13 @@ namespace Assignment_02.Display
                 }
                 Console.WriteLine("\n\n0) Exit");
                 Console.Write("> ");
-                while (Console.ReadLine() != "0")
+
+                var input = Console.ReadLine();
+                while (input != "0")
                 {
-                    Thread.Sleep(10000);
+                    Console.WriteLine("Please enter 0 to exit.");
+                    Console.Write("> ");
+                    input = Console.ReadLine();
                 }
 
             }
@@ -175,11 +178,14 @@ namespace Assignment_02.Display
                 }
                 Console.WriteLine("\n\n0) Exit");
                 Console.Write("> ");
-                while (Console.ReadLine() != "0")
-                {
-                    Thread.Sleep(10000);
-                }
 
+                var input = Console.ReadLine();
+                while (input != "0")
+                {
+                    Console.WriteLine("Please enter 0 to exit.");
+                    Console.Write("> ");
+                    input = Console.ReadLine();
+                }
             }
             catch (Exception ex)
             {
@@ -192,12 +198,22 @@ namespace Assignment_02.Display
         {
             try
             {
-                var regex = new Regex("[0-9]");
-
                 Console.Clear();
+
+                var regex = new Regex("[0-9]");
+                int studentCount = 0;
+
                 Console.WriteLine("--------------------------------------------");
                 Console.WriteLine($"----- Please select student to enroll -----");
                 Console.WriteLine($"-------------------------------------------");
+
+                for (int i = 0; i < students.Length; i++)
+                {
+                    if (students[i] != null)
+                    {
+                        studentCount++;
+                    }
+                }
 
                 for (int i = 0; i < students.Length; i++)
                 {
@@ -214,8 +230,9 @@ namespace Assignment_02.Display
 
                 Console.Write("> ");
                 var input = Console.ReadLine();
+                var numericInput = Convert.ToInt32(input);
 
-                while (!regex.IsMatch(input!) || Convert.ToInt32(input) > 10)
+                while (!regex.IsMatch(input!) || numericInput > 10 || numericInput > studentCount)
                 {
                     Console.WriteLine("Please enter a valid selection! ");
                     Console.Write("> ");
@@ -226,6 +243,7 @@ namespace Assignment_02.Display
                 var result = students[index];
 
                 return result;
+
             }
             catch (Exception ex)
             {
@@ -235,16 +253,16 @@ namespace Assignment_02.Display
         }
 
         public static void EnrollStudentMenu(Student[] students, string[,] enrolledClasses)
-        {// Tam: need to stop user choose the class which is fully enrolled here by using IndexOutOfRangeException ???
+        {
             try
             {
-                //int studentCount = 0;
-
                 Console.Clear();
+                
                 var regex = new Regex("[1-5]");
 
                 Console.WriteLine("---------------------------------------");
                 Console.WriteLine("Please select class to enroll student: ");
+                Console.WriteLine("---------------------------------------");
                 Console.WriteLine("1) Math");
                 Console.WriteLine("2) Web");
                 Console.WriteLine("3) OOP");
@@ -265,7 +283,9 @@ namespace Assignment_02.Display
 
                 if (enrolledClasses[classIndex, 3] != null)
                 {
-                    Console.WriteLine("CLASS FULL !!!");
+                    Console.WriteLine("------------------");
+                    Console.WriteLine("--- Class Full ---");
+                    Console.WriteLine("------------------");
                     Thread.Sleep(2000);
 
                 }
@@ -299,17 +319,15 @@ namespace Assignment_02.Display
             try
             {
                 Console.Clear();
-                Console.WriteLine($"--------------------------------------");
-                Console.WriteLine($"-------------- Students --------------");
-                Console.WriteLine($"\n------- Name -------------- Id ------- Class -------");
+                Console.WriteLine($"-------------------------------------");
+                Console.WriteLine($"--------- Enrolled Students ---------");
 
                 int rows = classes.GetLength(0);
                 int cols = classes.GetLength(1);
 
                 for (int i = 0; i < rows; i++)
                 {
-                    var temp = classes[i, 0];
-
+                    Console.WriteLine("----------");
                     for (int j = 0; j < cols; j++)
                     {
 
@@ -319,11 +337,15 @@ namespace Assignment_02.Display
                 }
                 Console.WriteLine("\n\n0) Exit");
                 Console.Write("> ");
-                while (Console.ReadLine() != "0")
-                {
-                    Thread.Sleep(10000);
-                }
 
+                var input = Console.ReadLine();
+                while (input != "0")
+                {
+                    Console.WriteLine("Please enter 0 to exit.");
+                    Console.Write("> ");
+                    input = Console.ReadLine();
+                }
+ 
             }
             catch (Exception ex)
             {
@@ -363,11 +385,14 @@ namespace Assignment_02.Display
                 }
                 Console.WriteLine("\n\n0) Exit");
                 Console.Write("> ");
-                while (Console.ReadLine() != "0")
-                {
-                    Thread.Sleep(10000);
-                }
 
+                var input = Console.ReadLine();
+                while (input != "0")
+                {
+                    Console.WriteLine("Please enter 0 to exit.");
+                    Console.Write("> ");
+                    input = Console.ReadLine();
+                }
             }
             catch (Exception ex)
             {

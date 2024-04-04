@@ -72,5 +72,34 @@ namespace Assignment_02.Validation
                 throw;
             }
         }
+
+        public static bool NoStudentsToEnroll(Student[] students)
+        {
+            try
+            {
+                int count = 0;
+                for (int i = 0; i < students.Length; i++)
+                {
+                    if (students[i] == null)
+                    {
+                        count++;
+                    }
+                }
+                if (count == 10)
+                {
+                    Console.WriteLine("\n----------------------");
+                    Console.WriteLine("- No Students Exist! -");
+                    Console.WriteLine("----------------------");
+                    Thread.Sleep(2000);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
     }
 }

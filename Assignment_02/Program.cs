@@ -27,18 +27,9 @@ namespace Assignment_02
             Student[] students = new Student[10];
             Professor[] professors = new Professor[10];
 
-            // Enroll Student in Classes
+            // Array to enroll Student in Classes
             string[,] enrolledClasses = new string[5, 4];
             CreateClasses(enrolledClasses);
-
-            // Assign Professor in Classes
-            string[,] taughtClasses = new string[5, 4];
-            CreateClasses(taughtClasses);
-
-
-            // Arrays to store students who enrolled in classes:
-
-            // Arrays to store professors who teaching classes:
 
             bool start = true;
 
@@ -96,17 +87,27 @@ namespace Assignment_02
 
                     // Enroll Students
                     case "5":
-                        EnrollStudentMenu(students, enrolledClasses);
+                        if (NoStudentsToEnroll(students))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            EnrollStudentMenu(students, enrolledClasses);
+                        }
+
                         break;
-                    // Tam: I add these: 
+                    
                     // View Students Enrolled In Classes
                     case "6":
                         DisplayStudentsEnrolledClasses(enrolledClasses);
+
                         break;
 
                     // View Professor Teaching Classes
                     case "7":
                         DisplayProfessorsTeachingClasses(professors);
+
                         break;
 
                     // Exit App

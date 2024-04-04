@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string[] Classes { get; set; } = { "Math", "Web", "OOP", "Linux", "Databases" };
+        public string[] Classes { get; set; } = { "Math", "Web", "OOP", "Linux", "Databases" }; // Assigning default classes for every professor created
 
         public Professor()
         {
