@@ -88,7 +88,8 @@ namespace Assignment_02.Utility
                     else if (enrolledClasses[classIndex, i] == null)
                     {
                         enrolledClasses[classIndex, i] = studentDetails;
-                        break;                    }
+                        break;      
+                    }
                     else
                     {
                         continue;

@@ -92,6 +92,7 @@ namespace Assignment_02
                     // Enroll Students
                     case "5":
                         EnrollStudentMenu(students, enrolledClasses);
+
                         break;
 
                     // View Students Enrolled
